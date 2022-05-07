@@ -3,20 +3,75 @@ import { InjectModel } from 'nestjs-typegoose';
 
 import { ModelType } from '@typegoose/typegoose/lib/types';
 import { UserModel } from 'src/user/user.model';
+import { UpdateUserDto } from './dto/updateUser.dto';
+import { genSalt, hash } from 'bcryptjs';
 
 @Injectable()
 export class UserService {
 	constructor(
-		@InjectModel(UserModel) private readonly userModel: ModelType<UserModel>
+		@InjectModel(UserModel) private readonly UserModel: ModelType<UserModel>
 	) {}
 
-	async getById(id) {
-		const user = await this.userModel.findById(id);
+	async getUserById(id) {
+		const user = await this.UserModel.findById(id);
 
 		if (user) {
 			return user;
 		} else {
 			throw new NotFoundException('User not found!');
 		}
+	}
+
+	async updateProfile(id: string, dto: UpdateUserDto) {
+		const user = await this.getUserById(id);
+
+		const isSameUser = await this.UserModel.findOne({ email: dto.email });
+
+		if (isSameUser && String(id) !== String(isSameUser._id)) {
+			throw new NotFoundException('This email is busy!');
+		}
+
+		if (dto.password) {
+			const salt = await genSalt(10);
+
+			user.password = await hash(dto.password, salt);
+		}
+
+		user.email = dto.email;
+
+		if (dto.isAdmin || dto.isAdmin === false) {
+			user.isAdmin = dto.isAdmin;
+		}
+		await user.save();
+		return;
+	}
+
+	async getCountUsers() {
+		return this.UserModel.find().count().exec();
+	}
+
+	async getAllUsers(searchTerm?: string) {
+		let options = {};
+
+		if (searchTerm) {
+			options = {
+				$or: [
+					{
+						email: new RegExp(searchTerm, 'i'),
+					},
+				],
+			};
+		}
+
+		return this.UserModel.find(options)
+			.select('-password -updatedAt -__v')
+			.sort({
+				createdAt: 'desc',
+			})
+			.exec();
+	}
+
+	async deleteUser(id: string) {
+		return this.UserModel.findByIdAndDelete(id).exec();
 	}
 }
