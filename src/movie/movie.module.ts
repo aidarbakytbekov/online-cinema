@@ -18,6 +18,7 @@ import { ConfigModule } from '@nestjs/config';
       }
     ]),
   ],
-  providers: [MovieService]
+  providers: [MovieService],
+  exports: [MovieService]
 })
 export class MovieModule {}

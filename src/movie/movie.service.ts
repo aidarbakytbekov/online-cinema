@@ -14,12 +14,12 @@ export class MovieService {
 
 	async movieBySlug(slug: string) {
 		const movie = await this.MovieModel.findOne({ slug })
-										.populate('actors genres')
-										.exec();
+			.populate('actors genres')
+			.exec();
 
-		if(movie) {
+		if (movie) {
 			return movie;
-		}else {
+		} else {
 			throw new NotFoundException('Movie not found!');
 		}
 	}
@@ -53,6 +53,18 @@ export class MovieService {
 
 		if (!updatedMovie) throw new NotFoundException('Movies not found!');
 		return updatedMovie;
+	}
+
+	async updateRatings(id: Types.ObjectId, newRating: number) {
+		return this.MovieModel.findByIdAndUpdate(
+			id,
+			{
+				rating: newRating,
+			},
+			{
+				new: true,
+			}
+		).exec();
 	}
 
 	async getAllMovies(searchTerm?: string) {
@@ -93,7 +105,7 @@ export class MovieService {
 			throw new NotFoundException('Movie not found!');
 		}
 	}
-	
+
 	async createMovie() {
 		const defaultValue: CreateMovieDto = {
 			poster: '',
