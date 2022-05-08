@@ -11,7 +11,10 @@ export class GenreService {
 	) {}
 
 	async genreBySlug(slug: string) {
-		return this.GenreModel.find({ slug }).exec();
+		const genre = await this.GenreModel.find({ slug }).exec();
+
+		if(!genre.length) throw new NotFoundException('Genre not found!')
+		return genre
 	}
 
 	async getAllGenres(searchTerm?: string) {
@@ -76,16 +79,16 @@ export class GenreService {
 			new: true,
 		}).exec();
 
-    if(!updatedGenre) throw new NotFoundException('Genre not found!')
+		if (!updatedGenre) throw new NotFoundException('Genre not found!');
 
-    return updatedGenre
+		return updatedGenre;
 	}
 
 	async deleteGenre(id: string) {
 		const deletedGenre = this.GenreModel.findByIdAndDelete(id).exec();
 
-    if(!deletedGenre) throw new NotFoundException('Genre not found!')
+		if (!deletedGenre) throw new NotFoundException('Genre not found!');
 
-    return deletedGenre
+		return deletedGenre;
 	}
 }
