@@ -6,15 +6,15 @@ import { ActorDto } from './actor.dto';
 
 @Injectable()
 export class ActorService {
-  constructor(
+	constructor(
 		@InjectModel(ActorModel) private readonly ActorModel: ModelType<ActorModel>
 	) {}
 
-  async actorBySlug(slug: string) {
+	async actorBySlug(slug: string) {
 		const actor = await this.ActorModel.findOne({ slug }).exec();
 
-    if(!actor) throw new NotFoundException('Actor not found!')
-    return actor
+		if (!actor) throw new NotFoundException('Actor not found!');
+		return actor;
 	}
 
 	async getAllActors(searchTerm?: string) {
@@ -33,14 +33,29 @@ export class ActorService {
 			};
 		}
 
-		return this.ActorModel.find(options)
-			.select(' -updatedAt -__v')
+		return this.ActorModel.aggregate()
+			.match(options)
+			.lookup({
+				from: 'Movie',
+				foreignField: 'actors',
+				localField: '_id',
+				as: 'movies',
+			})
+			.addFields({
+				countMovies: {
+					$size: '$movies',
+				},
+			})
+			.project({
+				__v: 0,
+				updatedAt: 0,
+				movies: 0,
+			})
 			.sort({
-				createdAt: 'desc',
+				createdAt: -1,
 			})
 			.exec();
 	}
-
 
 	async getActorById(id) {
 		const actor = await this.ActorModel.findById(id);
@@ -80,4 +95,4 @@ export class ActorService {
 
 		return deletedActor;
 	}
-} 
+}

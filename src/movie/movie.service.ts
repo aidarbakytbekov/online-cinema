@@ -93,7 +93,7 @@ export class MovieService {
 			throw new NotFoundException('Movie not found!');
 		}
 	}
-
+	
 	async createMovie() {
 		const defaultValue: CreateMovieDto = {
 			poster: '',
