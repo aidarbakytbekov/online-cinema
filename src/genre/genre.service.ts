@@ -11,9 +11,9 @@ export class GenreService {
 	) {}
 
 	async genreBySlug(slug: string) {
-		const genre = await this.GenreModel.find({ slug }).exec();
+		const genre = await this.GenreModel.findOne({ slug }).exec();
 
-		if(!genre.length) throw new NotFoundException('Genre not found!')
+		if(!genre) throw new NotFoundException('Genre not found!')
 		return genre
 	}
 

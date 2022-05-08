@@ -11,9 +11,9 @@ export class ActorService {
 	) {}
 
   async actorBySlug(slug: string) {
-		const actor = await this.ActorModel.find({ slug }).exec();
+		const actor = await this.ActorModel.findOne({ slug }).exec();
 
-    if(!actor.length) throw new NotFoundException('Actor not found!')
+    if(!actor) throw new NotFoundException('Actor not found!')
     return actor
 	}
 
