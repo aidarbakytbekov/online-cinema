@@ -41,7 +41,7 @@ export class MovieController {
 
   @UsePipes(new ValidationPipe())
 	@Post('by-genres')
-	async getMovieByGenres(@Body('genreIds') genreIds: GenreIdsDto[]) {
+	async getMovieByGenres(@Body('genreIds') genreIds: Types.ObjectId[]) {
 		return this.MovieService.movieByGenres(genreIds);
 	}
 

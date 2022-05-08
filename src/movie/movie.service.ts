@@ -31,13 +31,15 @@ export class MovieService {
 		return movies;
 	}
 
-	async movieByGenres(genreIds: GenreIdsDto[]) {
-		const actor = await this.MovieModel.find({
+	async movieByGenres(genreIds: Types.ObjectId[]) {
+		const movies = await this.MovieModel.find({
 			genres: { $in: genreIds },
 		}).exec();
 
-		if (!actor.length) throw new NotFoundException('Movies not found!');
-		return actor;
+		console.log(movies) 
+
+		if (!movies) throw new NotFoundException('Movies not found!');
+		return movies;
 	}
 
 	async updateCountOpened(slug: string) {

@@ -20,21 +20,26 @@ import { GenreService } from './genre.service';
 export class GenreController {
 	constructor(private readonly GenreService: GenreService) {}
 
-	@Get('by-slug/:slug')
-	async bySlug(@Param('slug') slug: string) {
-		return this.GenreService.genreBySlug(slug);
-	}
-
-	@Get('/collections')
-	async getCollections() {
-		return this.GenreService.getCollections();
-	}
-
 	@Get()
 	async getAllGenres(@Query('searchTerm') searchTerm?: string) {
 		return this.GenreService.getAllGenres(searchTerm);
 	}
 
+	@Get('by-slug/:slug')
+	async bySlug(@Param('slug') slug: string) {
+		return this.GenreService.genreBySlug(slug);
+	}
+	
+	@Get('popular')
+	async getPopular() {
+		return this.GenreService.getPopular()
+	}
+
+	@Get('collections')
+	async getCollections() {
+		return this.GenreService.getCollections();
+	}
+	
 	@Get(':id')
 	@Auth('admin')
 	async getGenre(@Param('id', IdValidationPipe) id: string) {
