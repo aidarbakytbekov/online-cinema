@@ -19,14 +19,14 @@
       "@/components/*": ["components/*"],
 			"@/ui/*": ["components/ui/*"],
 			"@/screens/*": ["components/screens/*"],
-      
-      "@/hooks/*": ["hooks/*"],
-      "@/shared/*": ["shared/*"],
-      "@/config/*": ["config/*"],
-      "@/services/*": ["services/*"],
-      "@/store/*": ["store/*"],
-      "@/utils/*": ["utils/*"],
-      "@/assets/*": ["assets/*"],
+
+			"@/shared/*": ["shared/*"],
+			"@/hooks/*": ["hooks/*"],
+			"@/services/*": ["services/*"],
+			"@/utils/*": ["utils/*"],
+			"@/assets/*": ["assets/*"],
+			"@/configs/*": ["configs/*"],
+			"@/store/*": ["store/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -13,7 +13,7 @@ body {
   font-family: $font-family;
   font-style: normal;
   font-weight: 400;
-
+  @apply text-gray-300;
   @apply bg-gray-900;
 }
 
