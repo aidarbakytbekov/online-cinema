@@ -1,0 +1,9 @@
+.wrapper {
+  @apply relative;
+  display: grid;
+  grid-template-columns: 20% 1fr 20%;
+}
+
+.main {
+  @apply min-h-screen p-layout;
+}

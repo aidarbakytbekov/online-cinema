@@ -1,13 +1,15 @@
-import { FC } from "react";
-import { IHome } from './home.interface';
+import { FC } from 'react'
 
+import Layout from '@/components/layout/Layout'
+
+import { IHome } from './home.interface'
 
 const Home: FC<IHome> = () => {
-  return (
-    <div>
-      <h1>Home page</h1>
-    </div>
-  );
-};
+	return (
+		<Layout>
+			<h1>Home page</h1>
+		</Layout>
+	)
+}
 
-export default Home;
+export default Home
