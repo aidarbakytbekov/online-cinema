@@ -36,8 +36,6 @@ export class MovieService {
 			genres: { $in: genreIds },
 		}).exec();
 
-		console.log(movies) 
-
 		if (!movies) throw new NotFoundException('Movies not found!');
 		return movies;
 	}
