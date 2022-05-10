@@ -1,8 +1,6 @@
-
 import { axiosClassic } from '../api/interceptors'
-
-import { IMovie } from '../shared/types/movie.types';
-import { getMoviesUrl } from '../configs/api.config';
+import { getMoviesUrl } from '../configs/api.config'
+import { IMovie } from '../shared/types/movie.types'
 
 export const movieService = {
 	async getMovies(searchTerm?: string) {
@@ -13,5 +11,13 @@ export const movieService = {
 				  }
 				: {},
 		})
+	},
+
+	async getPopularMovies() {
+		const { data: movies } = await axiosClassic.get<IMovie[]>(
+			getMoviesUrl('/trending')
+		)
+
+		return movies
 	},
 }
