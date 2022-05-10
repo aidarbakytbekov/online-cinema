@@ -4,7 +4,7 @@
 		@apply fill-gray-600 mr-2 text-3xl transition-colors;
 	}
 	input {
-		@apply text-white placeholder:text-gray-600 block w-full bg-transparent outline-none;
+		@apply text-white border-none focus:ring-0 placeholder:text-gray-600 block w-full bg-transparent outline-none;
 	}
 	&:focus-within {
 		@apply border-gray-600;
