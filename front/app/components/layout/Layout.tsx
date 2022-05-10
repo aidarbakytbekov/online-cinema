@@ -1,16 +1,19 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 import Navigation from './navigation/Navigation'
 import Sidebar from './sidebar/Sidebar'
 import styles from './layout.module.scss'
-import Head from 'next/head'
 
-const Layout: FC = (props: any) => {
+interface Props {
+	children: ReactNode
+}
+
+const Layout: FC<Props> = ({children}: {children:  ReactNode}) => {
 	return (
     <>
 		<div className={styles.wrapper}>
 			<Navigation />
-			<div className={styles.main}>{props.children}</div>
+			<div className={styles.main}>{children}</div>
 			<Sidebar />
 		</div>
     </>

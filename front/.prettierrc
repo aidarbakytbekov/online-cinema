@@ -1,11 +1,11 @@
 {
-  "trailingComa": "es5",
-  "tabWidth": 2,
-  "useTabs": true,
-  "semi": false,
-  "singleQuote": true,
-  "importOrder": [
-    "<THIRD_PARTY_MODULES>",
+	"trailingComma": "es5",
+	"tabWidth": 2,
+	"useTabs": true,
+	"semi": false,
+	"singleQuote": true,
+	"importOrder": [
+		"<THIRD_PARTY_MODULES>",
 		"^@/screens/(.*)$",
 		"^@/components/(.*)$",
 		"^@/ui/(.*)$",
@@ -19,7 +19,7 @@
 		"^../(.*)",
 		"^./(.*)",
 		"(.scss)$"
-  ],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+	],
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true
 }
