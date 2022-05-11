@@ -6,7 +6,7 @@ import { getGenreUrl } from '../../../../../configs/url.config';
 
 export const usePopularGenres = () => {
 	const queryData = useQuery('popular genre menu', () =>
-		genreService.getAllGenres(), {
+		genreService.getGenres(), {
       select: ({data}) => data.map(item => ({
         icon: item.icon,
         path: getGenreUrl(item.slug),

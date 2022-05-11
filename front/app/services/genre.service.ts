@@ -1,12 +1,13 @@
 
-import { axiosClassic } from '../api/interceptors'
+import axios, { axiosClassic } from 'api/interceptors'
+
 
 import { IGenre } from '../shared/types/movie.types'
 import { getGenresUrl } from '../configs/api.config';
 
 export const genreService = {
-	async getAllGenres(searchTerm?: string) {
-		return axiosClassic.get<IGenre[]>(getGenresUrl('/popular'), {
+	async getGenres(searchTerm?: string) {
+		return axiosClassic.get<IGenre[]>(getGenresUrl(''), {
 			params: searchTerm
 				? {
 						searchTerm,
@@ -14,4 +15,8 @@ export const genreService = {
 				: {},
 		})
 	},
+
+	async deleteGenre(_id: string) {
+    return axios.delete<string>(getGenresUrl(`/${_id}`))
+  },
 }
