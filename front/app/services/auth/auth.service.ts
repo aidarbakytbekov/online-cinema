@@ -17,7 +17,7 @@ export const authService = {
 			saveToLocalStorage(res.data)
 		}
 
-    return res
+		return res
 	},
 
 	async login(email: string, password: string) {
@@ -30,7 +30,7 @@ export const authService = {
 			saveToLocalStorage(res.data)
 		}
 
-    return res
+		return res
 	},
 
 	logout() {
@@ -42,7 +42,8 @@ export const authService = {
 		const refreshToken = Cookies.get('refreshToken')
 		const res = await axiosClassic.post<IAuthResponse>(
 			getAuthUrl('/login/access-token'),
-			{ refreshToken }
+			{ refreshToken },
+			{ headers: { 'Content-type': 'application/json' } }
 		)
 
 		if (res.data.accessToken) {

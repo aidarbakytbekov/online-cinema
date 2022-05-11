@@ -3,9 +3,13 @@ import MainProvider from 'providers/MainProvider'
 
 import '@/assets/styles/globals.scss'
 
-function MyApp({ Component, pageProps }: AppProps) {
+import { TypeComponentAuthFields } from '../app/shared/types/auth.types'
+
+type TypeAppProps = AppProps & TypeComponentAuthFields
+
+function MyApp({ Component, pageProps }: TypeAppProps) {
 	return (
-		<MainProvider>
+		<MainProvider Component={Component}>
 			<Component {...pageProps} />
 		</MainProvider>
 	)
