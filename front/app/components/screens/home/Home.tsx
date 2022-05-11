@@ -15,7 +15,6 @@ const Home: FC<IHome> = () => {
 		>
 			<Heading className='text-gray-300 mb-8 text-xl'>Home page</Heading>
 
-			<button onClick={() => toastr.success('Auth', 'You have been successfully!')}>Show message</button>
 		</Meta>
 	)
 }

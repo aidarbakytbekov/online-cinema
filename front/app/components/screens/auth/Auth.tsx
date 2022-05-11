@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { FC, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
@@ -8,6 +9,8 @@ import { useAuth } from '@/hooks/useAuth'
 
 import Meta from '@/utils/meta/Meta'
 
+import { useActions } from '@/hooks/useActions'
+
 import styles from './Auth.module.scss'
 import AuthFields from './AuthFields'
 import { IAuthInput } from './auth.interface'
@@ -15,9 +18,11 @@ import { useAuthRedirect } from './useAuthRedirect'
 
 const Auth: FC = (props) => {
 	const [type, setType] = useState<'login' | 'register'>('login')
+	const { push } = useRouter()
 
 	useAuthRedirect()
 	const { isLoading } = useAuth()
+	const { login, register } = useActions()
 
 	const {
 		register: registerInput,
@@ -28,17 +33,11 @@ const Auth: FC = (props) => {
 		mode: 'onBlur',
 	})
 
-	const login = (data: any) => {
-		console.log('login', data)
-	}
-	const register = (data: any) => {
-		console.log('register', data)
-	}
-
 	const onSubmit: SubmitHandler<IAuthInput> = (data) => {
-		if (type === 'login') login(data)
+		if (type === 'login') {
+			login(data)
+		}
 		if (type === 'register') register(data)
-		reset()
 	}
 
 	return (

@@ -1,4 +1,5 @@
 import { IMenu } from './menu.interface'
+import { getAdminHomeUrl } from '../../../../configs/url.config';
 
 export const firstMenu: IMenu = {
 	title: 'Menu',
@@ -26,7 +27,7 @@ export const firstMenu: IMenu = {
 	],
 }
 
-export const userMenu:IMenu = {
-  title: 'General',
-  items: []
+export const userMenu: IMenu = {
+	title: 'General',
+	items: [],
 }

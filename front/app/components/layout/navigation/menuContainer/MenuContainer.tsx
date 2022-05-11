@@ -3,7 +3,7 @@ import { FC } from 'react'
 import Menu from './Menu'
 import GenreMenu from './genres/GenreMenu'
 import { firstMenu, userMenu } from './menu.data'
-import styles from './menuContainer.module.scss'
+import AuthItems from './auth/AuthItems'
 
 const MenuContainer: FC = () => {
 	return (

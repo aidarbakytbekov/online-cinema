@@ -12,7 +12,7 @@ const PopularMovies: FC = () => {
       ? <div className='mt-11'>
       <SkeletonLoader count={3} className='h-28 mb-4'/>
     </div> 
-      :  <MovieList path='/trending' movies={popularMovies || []} title='Popular movies'/>
+      :  <MovieList path='/trending' movies={popularMovies?.slice(0, 3) || []} title='Popular movies'/>
   )
 }
 

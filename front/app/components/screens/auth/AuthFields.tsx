@@ -3,7 +3,7 @@ import { FormState, UseFormRegister } from 'react-hook-form'
 
 import Field from '@/ui/form-elements/Field'
 
-import { validEmail } from '../../../shared/regexp'
+import { validEmail } from '@/shared/regexp'
 
 interface IAuthFields {
 	register: UseFormRegister<any>
