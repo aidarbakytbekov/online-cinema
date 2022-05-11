@@ -1,5 +1,5 @@
 import { NextPageAuth } from '@/shared/types/auth.types';
-import Admin from '@/screens/admin/Admin';
+import Admin from '@/screens/admin/home/Admin';
 
 
 const AdminPage: NextPageAuth = props => {

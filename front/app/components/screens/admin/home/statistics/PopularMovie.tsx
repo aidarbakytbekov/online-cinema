@@ -12,7 +12,7 @@ import { IMovie } from '@/shared/types/movie.types'
 
 import { movieService } from '@/services/movie.service'
 
-import { getMovieUrl } from '../../../../configs/url.config'
+import { getMovieUrl } from '../../../../../configs/url.config'
 import styles from '../Admin.module.scss'
 
 const PopularMovie: FC = (props) => {
