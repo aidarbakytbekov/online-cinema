@@ -1,0 +1,11 @@
+.reset {
+  @apply border rounded-md border-gray-700 p-1;
+  margin: 10px 0;
+}
+.s {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}

@@ -1,15 +1,22 @@
+import { FC } from 'react'
 
-import { FC } from 'react';
-import MoviesContainer from './moviesContainer/MoviesContainer';
-import Search from './search/Search';
-import styles from './sidebar.module.scss';
-const Sidebar: FC = () => {
-  return (
-    <aside className={styles.sidebar}>
-      <Search/>
-      <MoviesContainer/>
-    </aside>
-  );
-};
+import { ISidebarProps } from './sidebar.interface'
+import styles from './sidebar.module.scss'
+import cn from 'classnames';
+import PopularMovies from './moviesList/PopularMovies';
+import dynamic from 'next/dynamic';
 
-export default Sidebar;
+const DynamicFavorites = dynamic(() => import('./moviesList/favoriteMovies/FavoriteMovies'), {
+	ssr: false,
+})
+
+const Sidebar: FC<ISidebarProps> = ({ className, ...rest }) => {
+	return (
+		<aside className={cn(styles.sidebar, className)} {...rest}>
+			<PopularMovies/>
+      <DynamicFavorites/>
+		</aside>
+	)
+}
+
+export default Sidebar

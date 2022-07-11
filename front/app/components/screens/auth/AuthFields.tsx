@@ -28,9 +28,11 @@ const AuthFields: FC<IAuthFields> = ({
 					},
 				})}
         type='email'
+				error={errors.email}
 				placeholder="E-mail"
 				autoComplete='off'
-				error={errors.email}
+				aria-label="Enter your email"
+				aria-invalid={errors.email ? true : false}
 			/>
 			<Field
 				{...register('password', isPasswordRequired ? {
@@ -40,10 +42,12 @@ const AuthFields: FC<IAuthFields> = ({
             message: 'Password cannot be less than 8 characters'
           }
 				} : {})}
-				placeholder="Enter your  password"
         type='Password'
-				autoComplete='off'
 				error={errors.password}
+				placeholder="Enter your  password"
+				autoComplete='off'
+				aria-label="Enter your password"
+				aria-invalid={errors.password ? true : false}
 			/>
 		</>
 	)

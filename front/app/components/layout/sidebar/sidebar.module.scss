@@ -1,6 +1,15 @@
+@use '../../../assets/styles/scss/' as *;
+
+// .sidebar {
+//   max-width: 350px;
+//   width: 100%;
+//   min-height: 100%;
+//   @apply border-l border-l-gray-800 p-layout;
+//   @include tablet {
+//     display: none;
+//   }
+// }
+
 .sidebar {
-  max-width: 350px;
-  width: 100%;
-  min-height: 100%;
-  @apply border-l border-l-gray-800 p-layout;
+  @apply border-l border-l-gray-800
 }

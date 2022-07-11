@@ -1,5 +1,5 @@
 .list {
-	@apply mt-11 animate-fade;
+	@apply animate-fade mb-10;
 
 	.heading {
 		@apply font-bold text-xl mb-5 text-white capitalize;
@@ -10,9 +10,13 @@
 	}
 
 	.item {
-		@apply mb-4 flex items-stretch;
+		@apply mb-4 flex gap-4;
 
 		a {
+			position: relative;
+			width: 65px;
+			height: 100px;
+			flex: 1;
 			img {
 				@apply rounded-image transition-colors;
 				border: 1px solid transparent !important;
@@ -24,8 +28,8 @@
 			}
 		}
 		.info {
-			@apply ml-4 flex flex-col justify-between;
-			width: 67%;
+			@apply flex flex-col justify-between;
+			width: 65%;
 			.title {
 				@apply text-white text-lg font-medium truncate;
 			}

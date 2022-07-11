@@ -8,7 +8,7 @@ import Link from 'next/link'
 const MovieList: FC<IMovieList> = ({ path, title, movies }) => {
 	return (
 		<div className={styles.list}>
-			<div className={styles.heading}>{title}</div>
+			<div tabIndex={0} className={styles.heading}>{title}</div>
 			{movies.map((movie) => (
 				<MovieItem movie={movie} key={movie._id} />
 			))}

@@ -12,13 +12,13 @@ import AdminTable from '@/ui/admin-table/AdminTable/AdminTable'
 import { useActors } from './useActors'
 
 const ActorList: FC = () => {
-	const { isLoading, handleSearch, keyword, data, deleteAsync } = useActors()
+	const { isLoading, handleSearch, keyword, data, deleteAsync, createAsync } = useActors()
 
 	return (
 		<Meta title="Actors">
 			<AdminNavigation />
 			<Heading>Actors</Heading>
-			<AdminHeader handleSearch={handleSearch} keyword={keyword} />
+			<AdminHeader handleSearch={handleSearch} keyword={keyword} onClick={createAsync} />
 			<AdminTable
 				isLoading={isLoading}
 				removeHandler={deleteAsync}

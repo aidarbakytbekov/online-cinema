@@ -20,7 +20,7 @@ const PopularMovie: FC = (props) => {
 		'Most popular movie in admin',
 		() => movieService.getPopularMovies(),
 		{
-			select: (data): IMovie => data[0],
+			select: ({data}): IMovie => data.items[0],
 		}
 	)
 	return (

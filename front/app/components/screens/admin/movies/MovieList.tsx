@@ -12,13 +12,13 @@ import AdminTable from '@/ui/admin-table/AdminTable/AdminTable'
 import { useMovies } from './useMovies'
 
 const MovieList: FC = () => {
-	const { isLoading, handleSearch, keyword, data, deleteAsync } = useMovies()
+	const { isLoading, handleSearch, keyword, data, deleteAsync, createAsync } = useMovies()
 
 	return (
 		<Meta title="Movies">
 			<AdminNavigation />
 			<Heading>Movies</Heading>
-			<AdminHeader handleSearch={handleSearch} keyword={keyword} />
+			<AdminHeader handleSearch={handleSearch} keyword={keyword} onClick={createAsync} />
 			<AdminTable
 				isLoading={isLoading}
 				removeHandler={deleteAsync}

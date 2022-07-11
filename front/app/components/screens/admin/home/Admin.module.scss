@@ -1,8 +1,12 @@
 .statistics {
-  @apply flex items-stretch mt-10;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  margin-top: 15px;
+
 
   .block {
-    @apply air-block w-2/5 rounded-layout;
+    @apply air-block w-full rounded-layout;
   }
 
   .countUsers {

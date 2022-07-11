@@ -11,10 +11,12 @@ import { toastError } from '@/utils/toast-error'
 import { getAdminUrl } from '@/configs/url.config'
 
 import { genreService } from '@/services/genre.service'
+import { useRouter } from 'next/router';
 
 export const useGenres = () => {
 	const [keyword, setKeyword] = useState('')
 	const debouncedSearch = useDebounce(keyword, 500)
+	const {push} = useRouter()
 
 	const queryData = useQuery(
 		['search genres list', debouncedSearch],
@@ -37,9 +39,23 @@ export const useGenres = () => {
 		setKeyword(e.target.value)
 	}
 
+	const { mutateAsync: createAsync } = useMutation(
+		['create genre', debouncedSearch],
+		() => genreService.create(),
+		{
+			onError: (error) => {
+				toastError(error, 'Create genre')
+			},
+			onSuccess: ({data: _id}) => {
+				toastr.success('Create genre', 'You created genre successfully')
+				push(`genre/edit/${_id}`)
+			},
+		}
+	)
+
 	const { mutateAsync: deleteAsync } = useMutation(
-		['search genres list', debouncedSearch],
-		(genreId: string) => genreService.deleteGenre(genreId),
+		['delete genre', debouncedSearch],
+		(genreId: string) => genreService.delete(genreId),
 		{
 			onError: (error) => {
 				toastError(error, 'Delete genre')
@@ -57,7 +73,8 @@ export const useGenres = () => {
 			...queryData,
 			keyword,
 			deleteAsync,
+			createAsync
 		}),
-		[queryData, deleteAsync, keyword]
+		[queryData, deleteAsync, keyword, createAsync]
 	)
 }
