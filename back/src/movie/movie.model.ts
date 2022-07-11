@@ -23,6 +23,9 @@ export class MovieModel extends TimeStamps {
 	@prop()
 	banner: string;
 
+	@prop()
+	description: string;
+
 	@prop({ unique: true })
 	title: string;
 
@@ -32,10 +35,10 @@ export class MovieModel extends TimeStamps {
 	@prop()
 	parameters?: Parameters;
 
-	@prop({ default: 4.0 })
+	@prop({ default: 0 })
 	rating?: number;
 
-	@prop({ unique: true })
+	@prop()
 	videoUrl: string;
 
 	@prop({ default: 0 })

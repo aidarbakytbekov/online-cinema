@@ -25,7 +25,7 @@ export class UserController {
 
 	@Get('profile')
 	@Auth()
-	async getProfile(@User('_id') _id: string) {
+	async getProfile(@User('_id') _id: Types.ObjectId) {
 		return this.UserService.getUserById(_id);
 	}
 
@@ -33,7 +33,7 @@ export class UserController {
 	@Put('profile')
 	@HttpCode(200)
 	@Auth()
-	async updateProfile(@User('_id') _id: string, @Body() dto: UpdateUserDto) {
+	async updateProfile(@User('_id') _id: Types.ObjectId, @Body() dto: UpdateUserDto) {
 		return this.UserService.updateProfile(_id, dto);
 	}
 	@Get('profile/favorites')
@@ -58,7 +58,7 @@ export class UserController {
 	@HttpCode(200)
 	@Auth('admin')
 	async updateUser(
-		@Param('id', IdValidationPipe) id: string,
+		@Param('id', IdValidationPipe) id: Types.ObjectId,
 		@Body() dto: UpdateUserDto
 	) {
 		return this.UserService.updateProfile(id, dto);
@@ -78,7 +78,7 @@ export class UserController {
 
 	@Get(':id')
 	@Auth('admin')
-	async getUser(@Param('id', IdValidationPipe) id: string) {
+	async getUser(@Param('id', IdValidationPipe) id: Types.ObjectId) {
 		return this.UserService.getUserById(id);
 	}
 
@@ -86,6 +86,6 @@ export class UserController {
 	@HttpCode(200)
 	@Auth('admin')
 	async deleteUser(@Param('id', IdValidationPipe) id: string) {
-		return this.UserService.deleteUser(id);
+		return this.UserService.deleteUser(id);``
 	}
 }

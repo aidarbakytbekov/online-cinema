@@ -10,6 +10,7 @@ import {
 	Body,
 	Delete,
 	Post,
+	Req,
 } from '@nestjs/common';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { IdValidationPipe } from '../pipes/id.validation.pipe';
@@ -17,14 +18,19 @@ import { MovieService } from './movie.service';
 import { Types } from 'mongoose';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { GenreIdsDto } from './dto/genreIds.dto';
+import { Request } from 'express';
 
 @Controller('movies')
 export class MovieController {
 	constructor(private readonly MovieService: MovieService) {}
 
-  @Get()
-	async getAllMovies(@Query('searchTerm') searchTerm?: string) {
-		return this.MovieService.getAllMovies(searchTerm);
+	@Get()
+	async getAllMovies(
+		@Query('search') search?: string,
+		@Query('page') page?: number,
+		@Query('limit') limit?: number
+	) {
+		return this.MovieService.getAllMovies(search, page, limit);
 	}
 
 	@Get('by-slug/:slug')
@@ -39,21 +45,24 @@ export class MovieController {
 		return this.MovieService.movieByActor(actorId);
 	}
 
-  @UsePipes(new ValidationPipe())
+	@UsePipes(new ValidationPipe())
 	@Post('by-genres')
 	async getMovieByGenres(@Body('genreIds') genreIds: Types.ObjectId[]) {
 		return this.MovieService.movieByGenres(genreIds);
 	}
 
 	@Get('trending')
-	async getTrendingMovies() {
-		return this.MovieService.getTrendingMovies();
+	async getTrendingMovies(
+		@Query('page') page: number,
+		@Query('limit') limit: number
+	) {
+		return this.MovieService.getTrendingMovies(page, limit);
 	}
-  @UsePipes(new ValidationPipe())
+	@UsePipes(new ValidationPipe())
 	@Put('update-count-opened')
 	@HttpCode(200)
 	async updateCountOpened(@Body('slug') slug: string) {
-		return this.MovieService.updateCountOpened(slug)
+		return this.MovieService.updateCountOpened(slug);
 	}
 
 	@Get(':id')

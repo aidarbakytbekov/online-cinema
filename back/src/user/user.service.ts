@@ -13,7 +13,7 @@ export class UserService {
 		@InjectModel(UserModel) private readonly UserModel: ModelType<UserModel>
 	) {}
 
-	async getUserById(id) {
+	async getUserById(id: Types.ObjectId) {
 		const user = await this.UserModel.findById(id);
 
 		if (user) {
@@ -23,7 +23,7 @@ export class UserService {
 		}
 	}
 
-	async updateProfile(id: string, dto: UpdateUserDto) {
+	async updateProfile(id: Types.ObjectId, dto: UpdateUserDto) {
 		const user = await this.getUserById(id);
 
 		const isSameUser = await this.UserModel.findOne({ email: dto.email });

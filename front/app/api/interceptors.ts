@@ -6,17 +6,18 @@ import { removeTokensStorage } from '../services/auth/auth.helper'
 import { authService } from '../services/auth/auth.service'
 
 import { errorCatch } from './api.helpers'
+import { IS_PRODUCTION } from '../configs/constants';
 
 export const axiosClassic = axios.create({
 	baseURL: API_URL,
 	headers: {
-		'Content-type': 'application/json',
+		'Content-Type': 'application/json',
 	},
 })
 export const instance = axios.create({
 	baseURL: API_URL,
 	headers: {
-		'Content-type': 'application/json',
+		'Content-Type': 'application/json',
 	},
 })
 

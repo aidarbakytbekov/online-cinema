@@ -67,33 +67,63 @@ export class MovieService {
 		).exec();
 	}
 
-	async getAllMovies(searchTerm?: string) {
+	async getAllMovies(search?: string, p?: number, limit?: number) {
+		const page = p - 1 || 0;
+		const moviesPerPage = limit || 12;
 		let options = {};
 
-		if (searchTerm) {
+		if (search) {
 			options = {
 				$or: [
 					{
-						title: new RegExp(searchTerm, 'i'),
+						title: new RegExp(search, 'i'),
 					},
 				],
 			};
 		}
 
-		return this.MovieModel.find(options)
+		const count = await this.MovieModel.find(options).count();
+
+		const movies = await this.MovieModel.find(options)
 			.select(' -updatedAt -__v')
 			.sort({
 				createdAt: 'desc',
 			})
 			.populate('actors genres')
+			.skip(page * moviesPerPage)
+			.limit(moviesPerPage)
 			.exec();
+		const pages = Math.ceil(count / moviesPerPage);
+
+		return {
+			items: movies,
+			page,
+			total: count,
+			limit: moviesPerPage,
+			pages,
+		};
 	}
 
-	async getTrendingMovies() {
-		return await this.MovieModel.find({ countOpened: { $gt: 0 } })
+	async getTrendingMovies(p?: number, limit?: number) {
+		const page = p - 1 || 0;
+		const moviesPerPage = limit || 12;
+		const movies = await this.MovieModel.find({ countOpened: { $gt: 0 } })
 			.sort({ countOpened: -1 })
 			.populate('genres')
+			.skip(page * moviesPerPage)
+			.limit(moviesPerPage)
 			.exec();
+		const count = await this.MovieModel.find({
+			countOpened: { $gt: 0 },
+		}).count();
+		const pages = Math.ceil(count / moviesPerPage);
+		return {
+			items: movies,
+			total: count,
+			page,
+			limit: moviesPerPage,
+			pages,
+		};
 	}
 
 	async getMovieById(id) {
@@ -111,10 +141,11 @@ export class MovieService {
 			poster: '',
 			banner: '',
 			title: '',
+			description: '',
+			videoUrl: '',
 			slug: '',
 			actors: [],
 			genres: [],
-			videoUrl: '',
 		};
 
 		const movie = await this.MovieModel.create(defaultValue);
