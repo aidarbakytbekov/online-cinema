@@ -12,7 +12,7 @@ const LogoutButton:FC = () => {
 
 	return (
 		<li>
-			<a onClick={logoutHandler}>
+			<a aria-label='Logout' tabIndex={0} onClick={logoutHandler}>
 				<MaterialIcon name="MdLogout" />
 				<span>Logout</span>
 			</a>

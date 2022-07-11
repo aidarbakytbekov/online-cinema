@@ -1,4 +1,6 @@
-.nav {
+@use '../../../../assets/styles/scss/' as *;
+
+.list {
 	@apply mb-14 animate-fade;
 
 	.heading {
@@ -7,15 +9,17 @@
 
 	.list {
 		li {
-			@apply px-8 border-r-4 border-r-transparent transition-colors;
+			@apply flex items-center mt-6 px-8 border-r-4 border-r-transparent transition-colors;
+			transition: $transition;
 
 			a {
-				@apply flex items-center text-gray-600 px-3 mt-6 cursor-pointer;
+				@apply flex items-center text-gray-600 px-3 cursor-pointer;
 				span {
 					@apply ml-3 text-lg hover:text-white;
 				}
 				svg {
 					@apply text-2lg;
+					min-width: 50px;
 				}
 				span,
 				svg {

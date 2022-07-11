@@ -11,15 +11,17 @@ const DynamicAuthItems = dynamic(() => import('./auth/AuthItems'), {
 
 const Menu: FC<{ menu: IMenu }> = ({ menu: { items, title } }) => {
 	return (
-		<nav className={styles.nav}>
-			<span className={styles.heading}>{title}</span>
+		<>
+		<div className={styles.list}>
+			<span tabIndex={0} className={styles.heading}>{title}</span>
 			<ul className={styles.list}>
 				{items.map((item) => (
 					<MenuItem item={item} key={item.path} />
 				))}
 				{title === 'General' ? <DynamicAuthItems /> : null}
 			</ul>
-		</nav>
+		</div>
+		</>
 	)
 }
 

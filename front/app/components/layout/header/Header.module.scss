@@ -1,0 +1,103 @@
+@use '../../../assets/styles/scss/' as *;
+
+.header {
+	display: none;
+	@include tablet() {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		padding: 20px 20px 0 20px;
+	}
+}
+
+.burgerMenu {
+	position: relative;
+
+	width: 40px;
+	height: 40px;
+
+	span,
+	span::before,
+	span::after {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+
+		width: 40px;
+		height: 3px;
+		margin-top: -1px;
+		margin-left: -20px;
+		transition: $transition;
+
+		border-radius: 2px;
+		background-color: #fff;
+	}
+
+	span::before,
+	span::after {
+		content: '';
+	}
+
+	span::before {
+		transform: translateY(-8px);
+	}
+
+	span::after {
+		transform: translateY(7px);
+	}
+	svg {
+		@apply text-5xl;
+	}
+	&.active {
+		span::before {
+			transform: rotate(35deg);
+			transform-origin: left bottom;
+			width: 11px;
+		}
+		span::after {
+			transform: rotate(-35deg);
+			transform-origin: left bottom;
+			width: 13px;
+		}
+	}
+}
+
+.mobileMenu {
+	position: fixed;
+	z-index: 200;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	transition: $transition;
+	overflow-y: scroll;
+	transform: translateX(-100%);
+	&::-webkit-scrollbar {
+		display: none;
+	}
+	div {
+		transition: $transition;
+		transition-delay: .4s;
+		opacity: 0;
+	}
+
+	width: 70%;
+	height: 100%;
+
+	background: #f5f6f8;
+	background-color: #191b1f;
+	&.active {
+		transform: translateX(0);
+		div {
+			opacity: 1;
+		}
+	}
+}
+
+.close {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	@apply text-4xl;
+}

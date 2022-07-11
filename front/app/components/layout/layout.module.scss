@@ -1,9 +1,48 @@
+@use '../../assets/styles/scss/' as *;
+
 .wrapper {
+  min-height: 100vh;
   @apply relative;
-  display: grid;
-  grid-template-columns: 23% 1fr 23%;
+	display: grid;
+	grid-template-columns: 20% 1fr 20%;
+	grid-template-rows: auto 1fr auto;
+	grid-template-areas:
+		'header header header'
+		'nav body aside';
+  @include tablet {
+    grid-template-columns: minmax(320px, 1fr);
+		grid-template-areas:
+			"header"
+			"body";
+    
+  }
+}
+
+.aside {
+	grid-area: aside;
+	padding: 51px 35px;
+  @include tablet {
+    display: none;
+  }
+}
+.nav {
+	grid-area: nav;
+  @include tablet {
+    display: none;
+  }
 }
 
 .main {
-  @apply min-h-screen p-layout;
+	grid-area: body;
+}
+
+.header {
+	grid-area: header;
+}
+
+.main {
+	@apply min-h-screen p-layout relative;
+  @include tablet {
+    padding: 25px;
+  }
 }

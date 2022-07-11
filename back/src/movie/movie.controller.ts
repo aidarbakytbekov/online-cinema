@@ -47,8 +47,12 @@ export class MovieController {
 
 	@UsePipes(new ValidationPipe())
 	@Post('by-genres')
-	async getMovieByGenres(@Body('genreIds') genreIds: Types.ObjectId[]) {
-		return this.MovieService.movieByGenres(genreIds);
+	async getMovieByGenres(
+		@Body('genreIds') genreIds: Types.ObjectId[],
+		@Query('page') page?: number,
+		@Query('limit') limit?: number
+	) {
+		return this.MovieService.movieByGenres(genreIds, page, limit);
 	}
 
 	@Get('trending')

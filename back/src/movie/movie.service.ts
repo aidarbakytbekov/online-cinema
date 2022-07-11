@@ -12,61 +12,6 @@ export class MovieService {
 		@InjectModel(MovieModel) private readonly MovieModel: ModelType<MovieModel>
 	) {}
 
-	async movieBySlug(slug: string) {
-		const movie = await this.MovieModel.findOne({ slug })
-			.populate('actors genres')
-			.exec();
-
-		if (movie) {
-			return movie;
-		} else {
-			throw new NotFoundException('Movie not found!');
-		}
-	}
-
-	async movieByActor(actorId: Types.ObjectId) {
-		const movies = await this.MovieModel.find({ actors: actorId }).exec();
-
-		if (!movies.length) throw new NotFoundException('Movies not found!');
-		return movies;
-	}
-
-	async movieByGenres(genreIds: Types.ObjectId[]) {
-		const movies = await this.MovieModel.find({
-			genres: { $in: genreIds },
-		}).exec();
-
-		if (!movies) throw new NotFoundException('Movies not found!');
-		return movies;
-	}
-
-	async updateCountOpened(slug: string) {
-		const updatedMovie = await this.MovieModel.findOneAndUpdate(
-			{ slug },
-			{
-				$inc: { countOpened: 1 },
-			},
-			{
-				new: true,
-			}
-		).exec();
-
-		if (!updatedMovie) throw new NotFoundException('Movies not found!');
-		return updatedMovie;
-	}
-
-	async updateRatings(id: Types.ObjectId, newRating: number) {
-		return this.MovieModel.findByIdAndUpdate(
-			id,
-			{
-				rating: newRating,
-			},
-			{
-				new: true,
-			}
-		).exec();
-	}
-
 	async getAllMovies(search?: string, p?: number, limit?: number) {
 		const page = p - 1 || 0;
 		const moviesPerPage = limit || 12;
@@ -99,9 +44,92 @@ export class MovieService {
 			items: movies,
 			page,
 			total: count,
-			limit: moviesPerPage,
+			limit: Number(moviesPerPage),
 			pages,
 		};
+	}
+
+	async movieBySlug(slug: string) {
+		const movie = await this.MovieModel.findOne({ slug })
+			.populate('actors genres')
+			.exec();
+
+		if (movie) {
+			return movie;
+		} else {
+			throw new NotFoundException('Movie not found!');
+		}
+	}
+
+	async movieByActor(actorId: Types.ObjectId, p?: number, limit?: number) {
+		const page = p - 1 || 0;
+		const moviesPerPage = limit || 12;
+		const count = await this.MovieModel.find({ actors: actorId }).count();
+		const movies = await this.MovieModel.find({ actors: actorId })
+			.skip(page * moviesPerPage)
+			.limit(moviesPerPage)
+			.exec();
+		const pages = Math.ceil(count / moviesPerPage);
+
+		if (!movies.length) throw new NotFoundException('Movies not found!');
+		return {
+			items: movies,
+			page,
+			total: count,
+			limit: Number(moviesPerPage),
+			pages,
+		};
+	}
+
+	async movieByGenres(genreIds: Types.ObjectId[], p?: number, limit?: number) {
+		const page = p - 1 || 0;
+		const moviesPerPage = limit || 12;
+		const count = await this.MovieModel.find({
+			genres: { $in: genreIds },
+		}).count();
+		const movies = await this.MovieModel.find({
+			genres: { $in: genreIds },
+		})
+			.skip(page * moviesPerPage)
+			.limit(moviesPerPage)
+			.exec();
+		const pages = Math.ceil(count / moviesPerPage);
+
+		if (!movies) throw new NotFoundException('Movies not found!');
+		return {
+			items: movies,
+			page,
+			total: count,
+			limit: Number(moviesPerPage),
+			pages,
+		};
+	}
+
+	async updateCountOpened(slug: string) {
+		const updatedMovie = await this.MovieModel.findOneAndUpdate(
+			{ slug },
+			{
+				$inc: { countOpened: 1 },
+			},
+			{
+				new: true,
+			}
+		).exec();
+
+		if (!updatedMovie) throw new NotFoundException('Movies not found!');
+		return updatedMovie;
+	}
+
+	async updateRatings(id: Types.ObjectId, newRating: number) {
+		return this.MovieModel.findByIdAndUpdate(
+			id,
+			{
+				rating: newRating,
+			},
+			{
+				new: true,
+			}
+		).exec();
 	}
 
 	async getTrendingMovies(p?: number, limit?: number) {
@@ -121,7 +149,7 @@ export class MovieService {
 			items: movies,
 			total: count,
 			page,
-			limit: moviesPerPage,
+			limit: Number(moviesPerPage),
 			pages,
 		};
 	}

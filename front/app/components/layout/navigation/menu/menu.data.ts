@@ -1,5 +1,4 @@
 import { IMenu } from './menu.interface'
-import { getAdminHomeUrl } from '../../../../configs/url.config';
 
 export const firstMenu: IMenu = {
 	title: 'Menu',
@@ -23,6 +22,11 @@ export const firstMenu: IMenu = {
 			icon: 'MdLocalFireDepartment',
 			path: '/trending',
 			title: 'Trending now',
+		},
+		{
+			icon: 'MdFavorite',
+			path: '/favorites',
+			title: 'Favorites',
 		},
 	],
 }

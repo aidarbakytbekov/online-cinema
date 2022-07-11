@@ -15,11 +15,14 @@ const MenuItem: FC<{ item: IMenuItem }> = ({ item }) => {
 			className={cn({
 				[styles.active]: asPath === item.path,
 			})}
+			aria-current={asPath === item.path ? 'page' : false}
 		>
 			<Link href={item.path}>
 				<a>
-					<MaterialIcon name={item?.icon} />
-					<span>{item?.title}</span>
+					<div className={styles.icon}>
+						<MaterialIcon name={item?.icon} />
+					</div>
+					<span className={styles.title}>{item?.title}</span>
 				</a>
 			</Link>
 		</li>
