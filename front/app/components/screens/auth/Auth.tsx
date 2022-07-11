@@ -1,15 +1,16 @@
-import { useRouter } from 'next/router'
 import { FC, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import Button from '@/ui/form-elements/Button'
+import Field from '@/ui/form-elements/Field'
 import Heading from '@/ui/heading/Heading'
 
+import { useActions } from '@/hooks/useActions'
 import { useAuth } from '@/hooks/useAuth'
 
 import Meta from '@/utils/meta/Meta'
 
-import { useActions } from '@/hooks/useActions'
+import { validEmail } from '../../../shared/regexp'
 
 import styles from './Auth.module.scss'
 import AuthFields from './AuthFields'
@@ -18,7 +19,6 @@ import { useAuthRedirect } from './useAuthRedirect'
 
 const Auth: FC = (props) => {
 	const [type, setType] = useState<'login' | 'register'>('login')
-	const { push } = useRouter()
 
 	useAuthRedirect()
 	const { isLoading } = useAuth()
@@ -27,11 +27,11 @@ const Auth: FC = (props) => {
 	const {
 		register: registerInput,
 		handleSubmit,
-		formState,
-		reset,
+		formState: { errors },
 	} = useForm<IAuthInput>({
 		mode: 'onBlur',
 	})
+	console.log(errors)
 
 	const onSubmit: SubmitHandler<IAuthInput> = (data) => {
 		if (type === 'login') {
@@ -45,10 +45,36 @@ const Auth: FC = (props) => {
 			<section className={styles.wrapper}>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<Heading className="mb-6">Auth</Heading>
-					<AuthFields
-						formState={formState}
-						register={registerInput}
-						isPasswordRequired
+				
+					<Field
+						{...registerInput('email', {
+							required: 'Email is required',
+							pattern: {
+								value: validEmail,
+								message: 'Please, enter a valid email address',
+							},
+						})}
+						type="email"
+						error={errors.email}
+						placeholder="E-mail"
+						autoComplete="off"
+						aria-label="Enter your email"
+						aria-invalid={errors.email ? true : false}
+					/>
+					<Field
+						{...registerInput('password', {
+							required: 'Password is required',
+							minLength: {
+								value: 6,
+								message: 'Password cannot be less than 8 characters',
+							},
+						})}
+						type="Password"
+						error={errors.password}
+						placeholder="Enter your password"
+						autoComplete="off"
+						aria-label="Enter your password"
+						aria-invalid={errors.password ? true : false}
 					/>
 					<div className={styles.btns}>
 						<Button

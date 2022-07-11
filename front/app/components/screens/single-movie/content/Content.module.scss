@@ -1,0 +1,45 @@
+@use '../../../../assets/styles/scss/' as *;
+
+.content {
+	@apply relative z-2 p-8;
+
+	.description {
+		border-radius: 30px;
+		@apply text-opacity-80 mt-8;
+		width: 60%;
+		span {
+			display: block;
+			border-radius: 30px;
+			padding: 15px;
+			background: rgba(0, 0, 0, 0.479) !important;
+			color: inherit !important;
+			font-family: inherit !important;
+			@include mobile {
+				display: none;
+			}
+		}
+	}
+
+	> h1 {
+		@apply text-white uppercase text-5xl font-semibold mb-1 text-shadow;
+		@include mobile {
+			@apply text-3xl
+		}
+	}
+
+	.rating {
+		@apply absolute bottom-8 right-8 flex items-center text-xl opacity-90;
+
+		> svg {
+			@apply fill-yellow-700 mb-0.5;
+		}
+
+		> span {
+			@apply text-white ml-2;
+		}
+	}
+
+	.details {
+		@apply text-white text-opacity-80 my-3;
+	}
+}

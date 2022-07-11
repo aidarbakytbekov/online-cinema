@@ -39,7 +39,7 @@ export const useUsers = () => {
 	}
 
 	const { mutateAsync: deleteAsync } = useMutation(
-		['search users list', debouncedSearch],
+		['delete user', debouncedSearch],
 		(userId: string) => userService.deleteUser(userId),
 		{
 			onError: (error) => {

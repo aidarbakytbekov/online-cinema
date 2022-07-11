@@ -1,20 +1,43 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react';
+import { toastr } from 'react-redux-toastr'
 
+import Gallery from '@/components/ui/gallery/Gallery'
+import SubHeading from '@/components/ui/heading/SubHeading'
+import Slider from '@/components/ui/slider/Slider'
 
-import Meta from '@/utils/meta/Meta'
 import Heading from '@/ui/heading/Heading'
 
-import { IHome } from './home.interface'
-import {toastr} from 'react-redux-toastr';
+import Meta from '@/utils/meta/Meta'
 
-const Home: FC<IHome> = () => {
+import { IHome } from './home.interface'
+import axios from 'api/interceptors';
+
+const Home: FC<IHome> = ({ slides, actors, trendingMovies }) => {
+	useEffect(() => {
+		const fetch = async () => {
+			const res = await axios.get('https:/')
+		}
+	}, [])
 	return (
 		<Meta
 			title="Watch movies online"
 			description="Watch movies online or stream right to your browser"
 		>
-			<Heading className='text-gray-300 mb-8 text-xl'>Home page</Heading>
+			<Heading
+				className="text-gray-300 mb-8 text-xl"
+			>
+				Home page
+			</Heading>
+			{slides?.length && <Slider slides={slides} />}
+			<div className="my-10">
+				<SubHeading aria-label="Trending movies this week">Trending now</SubHeading>
+				{trendingMovies?.length && <Gallery items={trendingMovies} />}
+			</div>
 
+			<div className="my-10">
+				<SubHeading aria-label="Best artists this week">Best artists</SubHeading>
+				{actors?.length && <Gallery items={actors} />}
+			</div>
 		</Meta>
 	)
 }

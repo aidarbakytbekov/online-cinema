@@ -2,7 +2,7 @@
 	@apply air-block w-4/5 mx-auto mb-10 rounded-xl;
 
 	ul {
-		@apply flex justify-evenly items-center;
+		@apply flex justify-evenly items-center flex-wrap;
 		li {
 			@apply inline-block;
 			a {
