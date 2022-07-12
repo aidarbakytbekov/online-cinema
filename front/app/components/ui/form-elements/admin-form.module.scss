@@ -1,0 +1,8 @@
+.form {
+  @apply mt-12;
+  .fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 10px 20px;
+  }
+}

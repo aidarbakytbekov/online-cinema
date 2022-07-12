@@ -1,7 +1,9 @@
 .search {
-	@apply rounded-3xl border border-gray-700 px-3 py-2 flex items-center transition-colors;
+	@apply rounded-3xl border relative border-gray-700 px-3 py-2 px-4 transition-colors;
+	padding-left: 40px;
 	svg {
-		@apply fill-gray-600 mr-2 text-3xl transition-colors;
+		@apply fill-gray-600 mr-2 text-3xl transition-colors absolute left-1 top-3;
+		min-width: 50px;
 	}
 	input {
 		@apply text-white border-none focus:ring-0 placeholder:text-gray-600 block w-full bg-transparent outline-none;

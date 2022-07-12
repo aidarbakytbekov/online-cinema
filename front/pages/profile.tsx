@@ -1,8 +1,9 @@
 import { NextPageAuth } from '@/shared/types/auth.types';
+import Profile from '@/screens/admin/profile/Profile';
 
 const ProfilePage: NextPageAuth = props => {
   return (
-     <div>ProfilePage</div>
+     <Profile/>
    )
 }
 

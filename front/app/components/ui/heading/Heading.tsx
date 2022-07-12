@@ -1,13 +1,12 @@
-import { FC } from 'react'
+import { FC, HTMLAttributes } from 'react'
 
-interface IHeading {
-	children: string
-	className?: string
-}
+import { IHeading } from './heading.interface'
 
-const Heading: FC<IHeading> = ({ children, className }) => {
+const Heading: FC<IHeading> = ({ children, className, ...rest }) => {
 	return (
 		<h1
+			{...rest}
+			tabIndex={0}
 			className={`text-white text-opacity-80 font-semibold ${
 				className?.includes('xl') ? '' : 'text-3xl'
 			} ${className}`}

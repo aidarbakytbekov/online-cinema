@@ -9,7 +9,7 @@ export interface IGenre {
 }
 
 export interface IParameters {
-  year: number;
+  releaseYear: number;
   runtime: number
   country: string
 }
@@ -26,6 +26,7 @@ export interface IMovie {
 	_id: string
 	poster: string
 	banner: string
+	description: string
 	title: string
 	slug: string
 	parameters: IParameters

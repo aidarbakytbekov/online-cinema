@@ -5,7 +5,9 @@ import { reducers } from './rootReducer'
 
 const store = configureStore({
 	reducer: reducers,
-	middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+		serializableCheck: false
+	}),
 	devTools: process.env.NODE_ENV !== 'production',
 })
 

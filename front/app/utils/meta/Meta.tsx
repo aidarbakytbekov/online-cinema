@@ -4,7 +4,8 @@ import { FC } from 'react'
 
 import logoImage from '@/assets/images/logo.svg'
 
-import { siteName, titleMerge } from '../../configs/seo.config'
+import { siteName, titleMerge } from '@/configs/seo.config'
+
 import { onlyText } from '../string/clearText'
 
 import { ISeo } from './meta.interface'
@@ -34,6 +35,7 @@ const Meta: FC<ISeo> = ({ title, description, image, children }) => {
 							property="og:description"
 							content={onlyText(description, 197)}
 						/>
+						<meta property="og:locale" content="article" />
 					</>
 				) : (
 					<meta name="robots" content="noindex, nofollow" />

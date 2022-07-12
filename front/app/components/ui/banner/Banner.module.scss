@@ -1,0 +1,8 @@
+@import '../../../assets/styles/scss/_mixin';
+
+.banner {
+	@apply relative overflow-hidden w-full rounded-layout shadow-lg;
+	background-position: center;
+	background-size: cover;
+	@include fade-bg-gradient();
+}

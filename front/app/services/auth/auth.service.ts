@@ -1,55 +1,65 @@
+import axios from 'axios'
 import Cookies from 'js-cookie'
 
-import { axiosClassic } from '../../api/interceptors'
-import { getAuthUrl } from '../../configs/api.config'
-import { IAuthResponse } from '../../store/user/user.interface'
+import { getAuthUrl } from '@/configs/api.config'
 
+import { IAuthResponse } from '@/store/user/user.interface'
+
+import { API_URL } from './../../configs/api.config'
 import { removeTokensStorage, saveToLocalStorage } from './auth.helper'
 
 export const authService = {
 	async register(email: string, password: string) {
-		const res = await axiosClassic.post<IAuthResponse>(
-			getAuthUrl('/register'),
-			{ email, password }
+		const response = await axios.post<IAuthResponse>(
+			`${API_URL}${getAuthUrl('/register')}`,
+			{
+				email,
+				password,
+			}
 		)
 
-		if (res.data.accessToken) {
-			saveToLocalStorage(res.data)
+		if (response.data.accessToken) {
+			saveToLocalStorage(response.data)
 		}
 
-		return res
+		return response
 	},
-
 	async login(email: string, password: string) {
-		const res = await axiosClassic.post<IAuthResponse>(getAuthUrl('/login'), {
-			email,
-			password,
-		})
+		const response = await axios.post<IAuthResponse>(
+			`${API_URL}${getAuthUrl('/login')}`,
+			{
+				email,
+				password,
+			}
+		)
 
-		if (res.data.accessToken) {
-			saveToLocalStorage(res.data)
+		if (response.data.accessToken) {
+			saveToLocalStorage(response.data)
 		}
 
-		return res
+		return response
 	},
-
 	logout() {
 		removeTokensStorage()
 		localStorage.removeItem('user')
 	},
-
 	async getNewTokens() {
 		const refreshToken = Cookies.get('refreshToken')
-		const res = await axiosClassic.post<IAuthResponse>(
-			getAuthUrl('/login/access-token'),
-			{ refreshToken },
-			{ headers: { 'Content-type': 'application/json' } }
+		const response = await axios.post<IAuthResponse>(
+			`${API_URL}${getAuthUrl('/login/access-token')}`,
+			{
+				refreshToken,
+			},
+			{
+				headers: {'Content-Type': 'application/json'},
+			}
 		)
 
-		if (res.data.accessToken) {
-			saveToLocalStorage(res.data)
+		if (response.data.accessToken) {
+			saveToLocalStorage(response.data)
 		}
 
-		return res
+		return response
 	},
 }
+

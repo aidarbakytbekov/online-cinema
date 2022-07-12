@@ -1,0 +1,35 @@
+@use '../../../assets/styles/scss/' as *;
+
+.slider {
+	@apply relative mx-auto;
+	max-width: 1200px;
+
+	.slide {
+		@apply relative h-80 rounded-3xl overflow-hidden shadow-xl flex items-end;
+
+		@include fade-bg-gradient();
+
+		.image {
+			@apply image-like-bg;
+		}
+
+		.content {
+			@apply relative z-2 p-8;
+
+			.heading {
+				@apply text-white uppercase text-5xl font-semibold mb-1 text-shadow;
+				@include mobile(600px) {
+					@apply text-4xl;
+				}
+			}
+
+			.subHeading {
+				@apply text-gray-300 font-medium uppercase mb-4 text-shadow;
+			}
+
+			.button {
+				@apply btn-primary p-2 px-10;
+			}
+		}
+	}
+}
