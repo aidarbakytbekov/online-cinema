@@ -51,11 +51,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   try {
     const { data: movie } = await movieService.getBySlug(String(params?.slug))
-    const { data: dataSimilarMovies } = await movieService.getByGenres(
+    const { data } = await movieService.getByGenres(
       movie.genres.map((item) => item._id)
     )
 
-    const similarMovies: IGalleryItem[] = dataSimilarMovies
+    const similarMovies: IGalleryItem[] = data.items
       .filter((item) => item._id !== movie._id)
       .map((item) => ({
         name: item.title,
@@ -65,7 +65,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     return {
       props: {
-        similarMovies,
+        similarMovies:similarMovies,
         movie,
       },
     }
