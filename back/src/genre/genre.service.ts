@@ -58,9 +58,9 @@ export class GenreService {
 					_id: String(item._id),
 					title: item.name,
 					slug: item.slug,
-					image: moviesByGenre[0]?.banner
+					image: moviesByGenre.items[0]?.banner,
 				};
-				
+
 				return result;
 			})
 		);
@@ -69,11 +69,10 @@ export class GenreService {
 	}
 
 	async getPopular(): Promise<DocumentType<GenreModel>[]> {
-		return this.GenreModel
-			.find()
+		return this.GenreModel.find()
 			.select('-updatedAt -__v')
 			.sort({ createdAt: 'desc' })
-			.exec()
+			.exec();
 	}
 
 	async getGenreById(id) {

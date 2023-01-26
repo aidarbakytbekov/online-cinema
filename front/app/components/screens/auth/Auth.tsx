@@ -31,7 +31,7 @@ const Auth: FC = (props) => {
 	} = useForm<IAuthInput>({
 		mode: 'onBlur',
 	})
-	console.log(errors)
+
 
 	const onSubmit: SubmitHandler<IAuthInput> = (data) => {
 		if (type === 'login') {

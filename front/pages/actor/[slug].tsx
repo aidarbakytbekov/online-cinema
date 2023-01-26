@@ -47,6 +47,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	try {
 		const { data: actor } = await actorService.getBySlug(String(params?.slug))
 		const { data: movies } = await movieService.getByActor(actor._id)
+		console.log(movies)
 
 		return {
 			props: {
